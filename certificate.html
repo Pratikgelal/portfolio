@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certifications | Pratik Gelal</title>
+  <link rel="icon" type="image/png" href="LO.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    /* --- Modern Glassmorphism Core Style --- */
+    :root {
+      --bg-dark: #060913;
+      --card-bg: rgba(13, 20, 38, 0.45);
+      --border-color: rgba(255, 255, 255, 0.07);
+      --accent-cyan: #00f2fe;
+      --accent-blue: #4facfe;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .bg-glows {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      opacity: 0.15;
+    }
+    .orb-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: var(--accent-cyan); }
+    .orb-2 { bottom: 10%; right: -5%; width: 600px; height: 600px; background: var(--accent-blue); }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 80px 20px;
+    }
+
+    /* Back Button */
+    .back-nav {
+      margin-bottom: 40px;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      border: 1px solid var(--border-color);
+      padding: 10px 22px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+    }
+    .back-btn:hover {
+      background: rgba(0, 242, 254, 0.1);
+      border-color: var(--accent-cyan);
+      transform: translateX(-4px);
+    }
+
+    /* Header Section */
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .title {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    .gradient-text {
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Layout Grid */
+    .workspace-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      transition: all 0.5s ease;
+    }
+
+    .workspace-layout.split-view {
+      grid-template-columns: 380px 1fr;
+    }
+
+    /* Showcase Card Styling */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .card:hover {
+      border-color: rgba(0, 242, 254, 0.3);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 30px rgba(79, 172, 254, 0.05);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .icon-box {
+      width: 54px;
+      height: 54px;
+      background: rgba(0, 242, 254, 0.06);
+      border: 1px solid rgba(0, 242, 254, 0.15);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--accent-cyan);
+    }
+
+    .verify-badge {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      color: #10b981;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-body h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .issuer {
+      color: var(--accent-blue);
+      font-weight: 500;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .meta-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      border-top: 1px solid rgba(255,255,255,0.03);
+      padding-top: 15px;
+    }
+
+    .meta-info span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .view-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: rgba(0, 242, 254, 0.06);
+      border: 1px solid rgba(0, 242, 254, 0.2);
+      color: #fff;
+      padding: 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .view-link:hover, .view-link.active {
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+      color: #060913;
+      font-weight: 600;
+      border-color: transparent;
+      box-shadow: 0 5px 15px rgba(0, 242, 254, 0.2);
+    }
+
+    /* --- Side-by-Side Live Presentation Panel --- */
+    .preview-panel {
+      display: none;
+      background: rgba(10, 16, 32, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 30px;
+      backdrop-filter: blur(20px);
+      animation: paneSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes paneSlide {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    /* Clickable Image Container */
+    .media-container {
+      background: #02040a;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.6);
+      position: relative;
+      cursor: zoom-in;
+      overflow: hidden;
+      group: hover;
+    }
+
+    .media-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      object-fit: contain;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    /* Hover hint for zooming */
+    .media-container:hover img {
+      transform: scale(1.02);
+      filter: brightness(0.8);
+    }
+
+    .media-container::after {
+      content: '\f31e  Click to Zoom';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      color: #fff;
+      background: rgba(6, 9, 19, 0.8);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .media-container:hover::after {
+      opacity: 1;
+    }
+
+    .description-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .desc-tag {
+      color: var(--accent-cyan);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+    }
+
+    .description-container h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .description-container p {
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+    }
+
+    .tech-pill-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tech-pill {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--text-main);
+    }
+
+    /* --- Fullscreen Zoom Lightbox --- */
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(4, 6, 14, 0.95);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.1);
+      transform: scale(0.9);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .lightbox.active img {
+      transform: scale(1);
+    }
+
+    /* Lightbox UI Close Button */
+    .lightbox-close {
+      position: absolute;
+      top: -50px; right: 0;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 1.5rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .lightbox-close:hover {
+      background: var(--accent-cyan);
+      color: #060913;
+      transform: rotate(90deg);
+    }
+
+    /* Responsive scaling adjustments */
+    @media (max-width: 992px) {
+      .workspace-layout.split-view {
+        grid-template-columns: 1fr;
+      }
+      .preview-grid {
+        grid-template-columns: 1fr;
+      }
+      .lightbox-close {
+        top: 20px; right: 20px;
+        position: fixed;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-glows">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+  </div>
+
+  <div class="container">
+    
+    <!-- Navigation row -->
+    <div class="back-nav">
+      <a href="index.html#education" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+      </a>
+    </div>
+
+    <!-- Header Section -->
+    <div class="header">
+      <h1 class="title">Project <span class="gradient-text">Credentials</span></h1>
+      <p class="subtitle">Official recognition certificates from tech symposia, college exhibitions, and structural development hackathons.</p>
+    </div>
+
+    <!-- Interactive Workspace Grid System -->
+    <div class="workspace-layout" id="workspace">
+      
+      <!-- Primary Certificate Content Card Component -->
+      <div class="card-column">
+        <div class="card">
+          <div>
+            <div class="card-top">
+              <div class="icon-box"><i class="fa-solid fa-robot"></i></div>
+              <span class="verify-badge"><i class="fa-solid fa-circle-check"></i> Exhibition Project</span>
+            </div>
+            <div class="card-body">
+              <h3>AI Voice-Controlled Robot Car</h3>
+              <div class="issuer"><i class="fa-solid fa-building-columns"></i> Bhaktapur Municipality</div>
+            </div>
+          </div>
+          <div>
+            <div class="meta-info">
+              <span><i class="fa-solid fa-calendar"></i> 25 December 2024</span>
+              <span><i class="fa-solid fa-map-marker-alt"></i> Bhaktapur, Nepal</span>
+            </div>
+            <button class="view-link" id="toggleViewBtn" onclick="handleCertificateDisplay()">
+              <span>View Certificate Details</span> 
+              <i class="fa-solid fa-arrow-right" id="btnIcon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side presentation pane panel -->
+      <div class="preview-panel" id="previewPanel">
+        <div class="preview-grid">
+          
+          <!-- Column A: Clickable Certificate Render Block -->
+          <div class="media-container" onclick="openLightbox()">
+            <img src="certificate1.jpeg" alt="AI Voice-Controlled Robot Car Certificate">
+          </div>
+
+          <!-- Column B: Description Breakdown Block -->
+          <div class="description-container">
+            <span class="desc-tag">Project Overview</span>
+            <h2>AI Voice-Controlled Robot Car</h2>
+            <p>I built an AI Voice-Controlled Robot Car as my college exhibition project, organized by Bhaktapur Municipality on 25 December 2024.</p>
+            <p>The robot is capable of being controlled using voice commands such as “forward”, “left”, “right”, and “stop”. It demonstrates the integration of AI and robotics, making it an interactive and modern system suitable for real-world automation applications.</p>
+            
+            <div class="tech-pill-container">
+              <span class="tech-pill"><i class="fa-solid fa-microchip"></i> Robotics</span>
+              <span class="tech-pill"><i class="fa-solid fa-brain"></i> Speech Recognition</span>
+              <span class="tech-pill"><i class="fa-solid fa-code"></i> AI Integration</span>
+              <span class="tech-pill"><i class="fa-solid fa-bolt"></i> Automation</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Fullscreen Immersive Lightbox Modal Structure -->
+  <div class="lightbox" id="certLightbox" onclick="closeLightbox()">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <button class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
+      <img src="certificate1.jpeg" alt="Certificate High-Res Zoomed View">
+    </div>
+  </div>
+
+  <!-- Interactive State Engine Script -->
+  <script>
+    function handleCertificateDisplay() {
+      const workspace = document.getElementById('workspace');
+      const previewPanel = document.getElementById('previewPanel');
+      const toggleBtn = document.getElementById('toggleViewBtn');
+      const btnIcon = document.getElementById('btnIcon');
+
+      if (previewPanel.style.display === 'block') {
+        previewPanel.style.display = 'none';
+        workspace.classList.remove('split-view');
+        toggleBtn.classList.remove('active');
+        toggleBtn.querySelector('span').innerText = 'View Certificate Details';
+        btnIcon.className = 'fa-solid fa-arrow-right';
+      } else {
+        workspace.classList.add('split-view');
+        previewPanel.style.display = 'block';
+        toggleBtn.classList.add('active');
+        toggleBtn.querySelector('span').innerText = 'Hide Details';
+        btnIcon.className = 'fa-solid fa-xmark';
+      }
+    }
+
+    /* Lightbox Functions */
+    function openLightbox() {
+      const lightbox = document.getElementById('certLightbox');
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Prevents scrolling behind the lightbox
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById('certLightbox');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto'; // Restores scrolling
+    }
+
+    // Escape Key listener to close modal safely
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>

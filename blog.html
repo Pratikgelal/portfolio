@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Pratik</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0A0A0A;
+      --surface:   #111111;
+      --surface2:  #181818;
+      --border:    #252525;
+      --border2:   #333333;
+      --text:      #F2EFEA;
+      --muted:     #666660;
+      --muted2:    #444440;
+      --accent:    #C8A96E;
+      --accent-dim:#7A6540;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── Top Bar (Pratik button only) ── */
+    .top-bar {
+      padding: 1.25rem clamp(1.5rem, 6vw, 5rem);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: none;
+      border: 1px solid var(--border2);
+      color: var(--muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.55rem 1.2rem;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .btn-home:hover {
+      border-color: var(--accent-dim);
+      color: var(--accent);
+      background: rgba(200,169,110,0.04);
+    }
+
+    .btn-home svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ── Page Hero ── */
+    .page-hero {
+      padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 6vw, 5rem) clamp(2rem, 5vw, 3.5rem);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-inner { max-width: 1200px; margin: 0 auto; }
+
+    .hero-label {
+      display: inline-block;
+      font-size: 0.625rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.25rem, 6vw, 4rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      max-width: 640px;
+    }
+
+    /* ── Blog Grid ── */
+    .blog-section {
+      padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 6vw, 5rem);
+    }
+
+    .blog-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    /* ── Blog Card ── */
+    .blog-card {
+      background: var(--surface);
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.22s;
+      outline: none;
+    }
+
+    .blog-card:hover,
+    .blog-card:focus-visible {
+      background: var(--surface2);
+    }
+
+    .blog-card:hover .card-image-inner {
+      transform: scale(1.04);
+    }
+
+    /* Card Image ── SVG placeholder fallback */
+    .card-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--surface2);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .card-image-inner {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.38s ease;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: absolute;
+      inset: 0;
+      filter: brightness(0.8) saturate(0.7);
+    }
+
+    /* SVG gradient placeholder shown while image loads */
+    .card-image svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .card-body {
+      padding: 1.5rem 1.75rem 1.875rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-tag {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.7rem;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.4rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-meta {
+      font-size: 0.7rem;
+      color: var(--muted2);
+      letter-spacing: 0.04em;
+    }
+
+    .card-read {
+      font-size: 0.7rem;
+      color: var(--accent-dim);
+      letter-spacing: 0.1em;
+      font-weight: 500;
+      transition: color 0.2s, letter-spacing 0.2s;
+    }
+
+    .blog-card:hover .card-read {
+      color: var(--accent);
+      letter-spacing: 0.18em;
+    }
+
+    /* ── Modal Overlay ── */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 200;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.is-open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      width: 100%;
+      max-width: 740px;
+      margin: auto;
+      transform: translateY(18px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-backdrop.is-open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-hero {
+      width: 100%;
+      aspect-ratio: 21 / 9;
+      overflow: hidden;
+      background: var(--surface2);
+      position: relative;
+    }
+
+    .modal-hero img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.65) saturate(0.6);
+      position: absolute;
+      inset: 0;
+    }
+
+    .modal-hero svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .modal-content {
+      padding: clamp(2rem, 6vw, 3.25rem) clamp(1.5rem, 6vw, 3.25rem);
+    }
+
+    .modal-tag {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.9rem;
+      display: block;
+    }
+
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.65rem, 4.5vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-meta {
+      font-size: 0.72rem;
+      color: var(--muted2);
+      letter-spacing: 0.05em;
+      margin-bottom: 2.25rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-body {
+      font-size: 0.975rem;
+      line-height: 1.9;
+      color: #AEAAA4;
+    }
+
+    .modal-body p { margin-bottom: 1.4rem; }
+
+    .modal-body p:first-child::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      float: left;
+      line-height: 0.78;
+      margin-right: 0.1em;
+      margin-top: 0.12em;
+    }
+
+    .modal-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 2rem 0 0.7rem;
+    }
+
+    .modal-body ul {
+      margin-bottom: 1.4rem;
+      padding-left: 1.25rem;
+    }
+
+    .modal-body li {
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-close-bar {
+      padding: 1rem 1.75rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn-close {
+      background: none;
+      border: 1px solid var(--border2);
+      color: var(--muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.4rem;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-close:hover {
+      border-color: var(--accent-dim);
+      color: var(--text);
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 2.25rem clamp(1.5rem, 6vw, 5rem);
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--muted2);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .modal-backdrop { padding: 0; align-items: flex-end; }
+      .modal { max-width: 100%; border-left: none; border-right: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="index.html" class="btn-home" title="Back to Home">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Pratik
+    </a>
+  </div>
+
+  <section class="page-hero">
+    <div class="hero-inner">
+      <span class="hero-label">Writing &amp; Thoughts</span>
+      <h1 class="hero-title">Ideas worth sitting with.</h1>
+    </div>
+  </section>
+
+  <main class="blog-section" id="posts">
+    <div class="blog-grid" id="blogGrid"></div>
+  </main>
+
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <article class="modal" id="modalBox">
+      <div class="modal-hero" id="modalHero">
+        <img id="modalImg" src="" alt="" />
+      </div>
+      <div class="modal-content">
+        <span class="modal-tag" id="modalTag"></span>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <p class="modal-meta" id="modalMeta"></p>
+        <div class="modal-body" id="modalBody"></div>
+      </div>
+      <div class="modal-close-bar">
+        <button class="btn-close" id="btnClose">Close</button>
+      </div>
+    </article>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Pratik &mdash; All rights reserved.</p>
+  </footer>
+
+  <script>
+    /* ── SVG placeholder for Academic / CS grid pattern ── */
+    const placeholders = [
+      `<svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g2" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#0A0A0A"/>
+            <stop offset="100%" stop-color="#100E14"/>
+          </linearGradient>
+        </defs>
+        <rect width="480" height="270" fill="url(#g2)"/>
+        <g stroke="#252525" stroke-width="1">
+          <line x1="0" y1="45"  x2="480" y2="45"/>
+          <line x1="0" y1="90"  x2="480" y2="90"/>
+          <line x1="0" y1="135" x2="480" y2="135"/>
+          <line x1="0" y1="180" x2="480" y2="180"/>
+          <line x1="0" y1="225" x2="480" y2="225"/>
+          <line x1="80"  y1="0" x2="80"  y2="270"/>
+          <line x1="160" y1="0" x2="160" y2="270"/>
+          <line x1="240" y1="0" x2="240" y2="270"/>
+          <line x1="320" y1="0" x2="320" y2="270"/>
+          <line x1="400" y1="0" x2="400" y2="270"/>
+        </g>
+        <text x="240" y="148" text-anchor="middle" fill="#C8A96E" fill-opacity="0.08"
+          font-size="90" font-family="serif" font-weight="700">CS</text>
+        <g fill="#C8A96E" fill-opacity="0.3">
+          <rect x="95"  y="95"  width="50" height="35" rx="2"/>
+          <rect x="175" y="55"  width="50" height="75" rx="2"/>
+          <rect x="255" y="110" width="50" height="20" rx="2"/>
+          <rect x="335" y="70"  width="50" height="60" rx="2"/>
+        </g>
+      </svg>`
+    ];
+
+    /* ── Blog Data ── */
+    const posts = [
+      {
+        tag: "Student Life",
+        title: "Student Life as a CS Student",
+        date: "May 15, 2026",
+        readTime: "4 min read",
+        excerpt: "Being a Computer Science student is an exciting journey, but it is also full of challenges. Every day feels like a mix of learning, problem-solving, stress, and small victories.",
+        placeholderIndex: 0,
+        content: `
+          <p>Being a Computer Science student is an exciting journey, but it is also full of challenges. Every day feels like a mix of learning, problem-solving, stress, and small victories. Some days are easy and fun, while other days feel confusing and tiring. But overall, it is a life that helps you grow in many ways.</p>
+          
+          <h2>A Day in a CS Student’s Life</h2>
+          <p>Most CS students start their day with classes or lectures. You might learn about programming, algorithms, databases, or artificial intelligence. At first, these topics can feel difficult, especially when you see a lot of new terms and code.</p>
+          <p>After classes, many students spend time practising on a laptop. Writing code is not always smooth. Sometimes it works perfectly, and sometimes it gives errors again and again. Fixing those errors teaches patience and problem-solving skills.</p>
+          
+          <h2>Coding and Late-Night Study</h2>
+          <p>One common thing in CS life is late-night study. Many students sit with their laptops at night trying to finish assignments or projects. You may drink tea or coffee to stay awake while searching for bugs in your code.</p>
+          <p>Even though it feels stressful, there is also a special feeling when your code finally runs successfully. That moment feels like a small victory.</p>
+          
+          <h2>Group Projects and Friends</h2>
+          <p>In CS, group projects are very common. You work with classmates to build websites, apps, or software systems. Sometimes teamwork is smooth, and sometimes it is difficult because everyone has different ideas and schedules.</p>
+          <p>But group projects also help you learn communication and teamwork skills. You also make friends who are going through the same struggles as you.</p>
+          
+          <h2>Exams and Deadlines</h2>
+          <p>Exams and deadlines are a big part of student life. You may feel pressure when multiple submissions come at the same time. Managing time becomes very important. Planning your study and breaking tasks into small parts helps a lot.</p>
+          <p>Even though it is stressful, it teaches discipline and responsibility.</p>
+          
+          <h2>Skills You Build</h2>
+          <p>Being a CS student is not just about studying books. You also learn real skills like:</p>
+          <ul>
+            <li>Problem solving</li>
+            <li>Logical thinking</li>
+            <li>Coding in different languages</li>
+            <li>Working on real projects</li>
+            <li>Using technology in creative ways</li>
+          </ul>
+          <p>These skills are very useful for your future career.</p>
+          
+          <h2>The Struggles Are Real, But Worth It</h2>
+          <p>Sometimes you may feel stuck or think that coding is too hard. That is completely normal. Every CS student goes through this phase. The important thing is to keep going, even when things feel difficult.</p>
+          <p>Slowly, things start to make sense. You begin to understand how systems work, how apps are built, and how technology shapes the world.</p>
+          
+          <h2>Final Thoughts</h2>
+          <p>Student life as a Computer Science student is not easy, but it is meaningful. It is a journey full of learning, mistakes, growth, and success. Every line of code you write brings you one step closer to your goals.</p>
+          <p>If you stay consistent and keep learning, this journey can open many doors for your future.</p>
+        `
+      }
+    ];
+
+    /* ── Render Cards ── */
+    const grid = document.getElementById('blogGrid');
+
+    posts.forEach((post, i) => {
+      const card = document.createElement('article');
+      card.className = 'blog-card';
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', 'Read: ' + post.title);
+
+      card.innerHTML = `
+        <div class="card-image">
+          <div class="card-image-inner">
+            ${placeholders[post.placeholderIndex]}
+          </div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag">${post.tag}</span>
+          <h2 class="card-title">${post.title}</h2>
+          <p class="card-desc">${post.excerpt}</p>
+          <div class="card-footer">
+            <span class="card-meta">${post.date} &middot; ${post.readTime}</span>
+            <span class="card-read">Read &rarr;</span>
+          </div>
+        </div>
+      `;
+
+      card.addEventListener('click', () => openModal(i));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(i); }
+      });
+      grid.appendChild(card);
+    });
+
+    /* ── Modal Logic ── */
+    const backdrop  = document.getElementById('modalBackdrop');
+    const modalHero = document.getElementById('modalHero');
+    const modalTag  = document.getElementById('modalTag');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMeta  = document.getElementById('modalMeta');
+    const modalBody  = document.getElementById('modalBody');
+    const btnClose   = document.getElementById('btnClose');
+
+    function openModal(index) {
+      const p = posts[index];
+      modalHero.innerHTML = placeholders[p.placeholderIndex];
+      modalTag.textContent   = p.tag;
+      modalTitle.textContent = p.title;
+      modalMeta.textContent  = p.date + '  ·  ' + p.readTime;
+      modalBody.innerHTML    = p.content;
+      backdrop.classList.add('is-open');
+      backdrop.scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+      btnClose.focus();
+    }
+
+    function closeModal() {
+      backdrop.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    btnClose.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && backdrop.classList.contains('is-open')) closeModal();
+    });
+  </script>
+</body>
+</html>
