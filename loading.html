@@ -5,22 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loading - Pratik Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
-        rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        :root {
-            --cyan: #00d4ff;
-            --purple: #7c3aed;
-            --amber: #f59e0b;
         }
 
         body {
@@ -53,7 +42,7 @@
         .blob-1 {
             width: 400px;
             height: 400px;
-            background: var(--cyan);
+            background: #00d4ff;
             top: -100px;
             left: -100px;
             animation-duration: 10s;
@@ -62,7 +51,7 @@
         .blob-2 {
             width: 300px;
             height: 300px;
-            background: var(--purple);
+            background: #7c3aed;
             bottom: -50px;
             right: -50px;
             animation-duration: 12s;
@@ -72,7 +61,7 @@
         .blob-3 {
             width: 350px;
             height: 350px;
-            background: var(--amber);
+            background: #f59e0b;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -100,6 +89,7 @@
             }
         }
 
+        /* Floating particles */
         .particles {
             position: absolute;
             width: 100%;
@@ -108,30 +98,29 @@
 
         .particle {
             position: absolute;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            font-weight: 500;
-            white-space: nowrap;
-            animation: float linear infinite;
-            user-select: none;
+            width: 2px;
+            height: 2px;
+            background: rgba(0, 212, 255, 0.6);
+            border-radius: 50%;
+            animation: float 20s linear infinite;
         }
 
         @keyframes float {
             0% {
-                transform: translateY(100vh) translateX(0) rotate(0deg);
+                transform: translateY(100vh) translateX(0);
                 opacity: 0;
             }
 
             10% {
-                opacity: 0.55;
+                opacity: 1;
             }
 
             90% {
-                opacity: 0.55;
+                opacity: 1;
             }
 
             100% {
-                transform: translateY(-10vh) translateX(60px) rotate(20deg);
+                transform: translateY(-100vh) translateX(100px);
                 opacity: 0;
             }
         }
@@ -142,13 +131,12 @@
             z-index: 10;
             text-align: center;
             animation: fadeIn 0.8s ease-out;
-            width: min(640px, 92vw);
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: scale(0.94);
+                transform: scale(0.9);
             }
 
             to {
@@ -157,17 +145,17 @@
             }
         }
 
+        /* Logo Text */
         .logo {
-            font-size: 2.4rem;
-            font-weight: 800;
-            margin-bottom: 0.4rem;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 3rem;
             letter-spacing: -0.5px;
             font-family: 'Syne', sans-serif;
         }
 
         .logo-main {
-            background: linear-gradient(135deg, var(--cyan), var(--purple), var(--amber));
-            background-size: 200% 200%;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed, #f59e0b);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -178,16 +166,22 @@
 
             0%,
             100% {
-                background-position: 0% 50%;
+                background: linear-gradient(135deg, #00d4ff, #7c3aed, #f59e0b);
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
             }
 
             50% {
-                background-position: 100% 50%;
+                background: linear-gradient(135deg, #7c3aed, #f59e0b, #00d4ff);
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
             }
         }
 
         .logo-dot {
-            color: var(--cyan);
+            color: #00d4ff;
             animation: pulse 2s ease-in-out infinite;
         }
 
@@ -195,234 +189,115 @@
 
             0%,
             100% {
-                color: var(--cyan);
-                text-shadow: 0 0 10px var(--cyan);
+                color: #00d4ff;
+                text-shadow: 0 0 10px #00d4ff;
             }
 
             50% {
-                color: var(--amber);
-                text-shadow: 0 0 20px var(--amber);
+                color: #f59e0b;
+                text-shadow: 0 0 20px #f59e0b;
             }
         }
 
-        .tagline {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: #64748b;
-            letter-spacing: 1.5px;
-            margin-bottom: 1.6rem;
-            text-transform: uppercase;
+        /* Loader Animation */
+        .loader-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 3rem;
         }
 
-        .tagline .cursor {
-            display: inline-block;
-            width: 7px;
-            height: 12px;
-            background: var(--cyan);
-            margin-left: 4px;
-            vertical-align: -2px;
-            animation: cursorBlink 1s steps(1) infinite;
+        /* Main glowing ring */
+        .loader-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid transparent;
+            border-top: 3px solid #00d4ff;
+            border-right: 3px solid #7c3aed;
+            border-radius: 50%;
+            animation: spin 3s linear infinite;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5), inset 0 0 20px rgba(124, 58, 237, 0.3);
         }
 
-        @keyframes cursorBlink {
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Inner rotating element */
+        .loader-inner {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid transparent;
+            border-bottom: 2px solid #f59e0b;
+            border-radius: 50%;
+            animation: spinReverse 2s linear infinite;
+        }
+
+        @keyframes spinReverse {
+            0% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+        }
+
+        /* Pulsing center dot */
+        .loader-center {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #00d4ff;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: centerPulse 2s ease-in-out infinite;
+            box-shadow: 0 0 15px #00d4ff;
+        }
+
+        @keyframes centerPulse {
 
             0%,
-            49% {
+            100% {
+                transform: translate(-50%, -50%) scale(1);
                 opacity: 1;
             }
 
-            50%,
-            100% {
-                opacity: 0;
-            }
-        }
-
-        /* ===== Walking scene ===== */
-        .scene {
-            position: relative;
-            height: 175px;
-            margin: 0 auto 1.6rem;
-            overflow: hidden;
-        }
-
-        .ground {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 38px;
-            height: 2px;
-            background-image: repeating-linear-gradient(90deg,
-                    rgba(0, 212, 255, 0.55) 0px,
-                    rgba(0, 212, 255, 0.55) 10px,
-                    transparent 10px,
-                    transparent 22px);
-            box-shadow: 0 0 8px rgba(0, 212, 255, 0.35);
-        }
-
-        .portal {
-            position: absolute;
-            right: 4px;
-            bottom: 16px;
-            width: 34px;
-            height: 64px;
-            border-radius: 10px 10px 4px 4px;
-            border: 2px solid var(--cyan);
-            background: linear-gradient(180deg, rgba(0, 212, 255, 0.15), rgba(124, 58, 237, 0.25));
-            box-shadow: 0 0 18px rgba(0, 212, 255, 0.45), inset 0 0 14px rgba(124, 58, 237, 0.4);
-            animation: portalGlow 2.4s ease-in-out infinite;
-        }
-
-        .portal::after {
-            content: '';
-            position: absolute;
-            inset: 6px;
-            border-radius: 6px;
-            background: linear-gradient(180deg, var(--cyan), var(--purple));
-            opacity: 0.18;
-        }
-
-        .portal-label {
-            position: absolute;
-            right: -2px;
-            bottom: -14px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.55rem;
-            color: #5c6b8a;
-            letter-spacing: 0.5px;
-            width: 60px;
-            text-align: center;
-        }
-
-        @keyframes portalGlow {
-
-            0%,
-            100% {
-                box-shadow: 0 0 18px rgba(0, 212, 255, 0.45), inset 0 0 14px rgba(124, 58, 237, 0.4);
-            }
-
             50% {
-                box-shadow: 0 0 30px rgba(0, 212, 255, 0.75), inset 0 0 20px rgba(124, 58, 237, 0.6);
-            }
-        }
-
-        .portal.burst {
-            animation: portalBurst 0.6s ease-out;
-        }
-
-        @keyframes portalBurst {
-            0% {
-                box-shadow: 0 0 18px rgba(0, 212, 255, 0.45);
-            }
-
-            40% {
-                box-shadow: 0 0 55px rgba(0, 212, 255, 1), 0 0 90px rgba(124, 58, 237, 0.8);
-                transform: scale(1.12);
-            }
-
-            100% {
-                box-shadow: 0 0 18px rgba(0, 212, 255, 0.45);
-                transform: scale(1);
-            }
-        }
-
-        .character {
-            position: absolute;
-            left: 0;
-            bottom: 6px;
-            width: 78px;
-            height: 130px;
-            will-change: transform;
-        }
-
-        .figure {
-            width: 100%;
-            height: 100%;
-            display: block;
-            filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.55)) drop-shadow(0 0 12px rgba(124, 58, 237, 0.35));
-            overflow: visible;
-        }
-
-        .char-shadow {
-            position: absolute;
-            bottom: -4px;
-            left: 50%;
-            width: 38px;
-            height: 8px;
-            background: radial-gradient(ellipse at center, rgba(0, 212, 255, 0.45), transparent 70%);
-            transform: translateX(-50%);
-            border-radius: 50%;
-        }
-
-        .percent-badge {
-            position: absolute;
-            top: -22px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--cyan);
-            background: rgba(10, 10, 31, 0.6);
-            padding: 2px 7px;
-            border-radius: 8px;
-            border: 1px solid rgba(0, 212, 255, 0.35);
-            white-space: nowrap;
-        }
-
-        .footprint {
-            position: absolute;
-            bottom: 33px;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.85), rgba(124, 58, 237, 0.2) 70%, transparent);
-            transform: translate(-50%, 0) scale(1);
-            animation: footFade 0.7s ease-out forwards;
-            pointer-events: none;
-        }
-
-        @keyframes footFade {
-            0% {
-                opacity: 0.85;
-                transform: translate(-50%, 0) scale(0.6);
-            }
-
-            40% {
-                opacity: 0.6;
-                transform: translate(-50%, 0) scale(1.3);
-            }
-
-            100% {
-                opacity: 0;
-                transform: translate(-50%, 0) scale(1.8);
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0.7;
             }
         }
 
         /* Loading text */
-        .status-row {
-            min-height: 1.4rem;
-            margin-bottom: 0.9rem;
-        }
-
         .loading-text {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
+            font-size: 0.95rem;
             color: #94a3b8;
-            letter-spacing: 1px;
-            transition: opacity 0.25s ease;
-        }
-
-        .loading-text.swap {
-            opacity: 0;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            font-weight: 500;
         }
 
         .dot {
             display: inline-block;
             width: 3px;
             height: 3px;
-            background: var(--cyan);
+            background: #00d4ff;
             border-radius: 50%;
-            margin: 0 2px;
+            margin: 0 3px;
             animation: blink 1.4s infinite;
         }
 
@@ -451,12 +326,13 @@
             }
         }
 
+        /* Progress bar */
         .progress-container {
-            width: 220px;
+            width: 200px;
             height: 3px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            margin: 0 auto;
+            margin: 2rem auto 0;
             overflow: hidden;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(0, 212, 255, 0.2);
@@ -464,12 +340,27 @@
 
         .progress-bar {
             height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--cyan), var(--purple), var(--amber));
+            background: linear-gradient(90deg, #00d4ff, #7c3aed, #f59e0b);
             border-radius: 10px;
+            animation: progressFill 4s ease-in-out forwards;
             box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
         }
 
+        @keyframes progressFill {
+            0% {
+                width: 0%;
+            }
+
+            70% {
+                width: 70%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        /* Fade out animation */
         .loading-container.fade-out {
             animation: fadeOut 1s ease-out forwards;
         }
@@ -482,73 +373,51 @@
 
             to {
                 opacity: 0;
-                transform: scale(1.08);
+                transform: scale(1.1);
             }
         }
 
-        /* Reduced motion: hide the elaborate scene, keep it simple & calm */
-        .reduced-motion .scene,
-        .reduced-motion .particles {
-            display: none;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
             .logo {
-                font-size: 1.9rem;
+                font-size: 2rem;
+                margin-bottom: 2rem;
             }
 
-            .scene {
-                height: 140px;
-                margin-bottom: 1.2rem;
+            .loader-wrapper {
+                width: 100px;
+                height: 100px;
+                margin: 0 auto 2rem;
             }
 
-            .character {
-                width: 62px;
-                height: 104px;
-                bottom: 6px;
-            }
-
-            .portal {
-                width: 28px;
-                height: 52px;
+            .loading-text {
+                font-size: 0.85rem;
             }
 
             .progress-container {
-                width: 170px;
+                width: 150px;
             }
         }
 
         @media (max-width: 480px) {
             .logo {
-                font-size: 1.45rem;
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
             }
 
-            .tagline {
-                font-size: 0.6rem;
-            }
-
-            .scene {
-                height: 120px;
-                margin-bottom: 1rem;
-            }
-
-            .character {
-                width: 52px;
-                height: 88px;
-                bottom: 6px;
-            }
-
-            .portal {
-                width: 24px;
-                height: 44px;
+            .loader-wrapper {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto 1.5rem;
             }
 
             .loading-text {
-                font-size: 0.68rem;
+                font-size: 0.75rem;
             }
 
             .progress-container {
-                width: 140px;
+                width: 120px;
+                margin: 1.5rem auto 0;
             }
         }
     </style>
@@ -566,283 +435,76 @@
         <div class="logo">
             <span class="logo-main">Pratik Portfolio<span class="logo-dot">.</span></span>
         </div>
-        <div class="tagline">building the experience<span class="cursor"></span></div>
 
-        <div class="scene" id="scene">
-            <div class="ground" id="ground"></div>
-            <div class="portal" id="portal"></div>
-            <div class="portal-label">index.html</div>
-
-            <div class="character" id="character">
-                <div class="char-shadow" id="charShadow"></div>
-                <svg class="figure" id="figure" viewBox="0 0 120 170" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="figGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#00d4ff" />
-                            <stop offset="55%" stop-color="#7c3aed" />
-                            <stop offset="100%" stop-color="#f59e0b" />
-                        </linearGradient>
-                    </defs>
-
-                    <!-- back leg -->
-                    <g id="legBack">
-                        <path d="M58 88 L52 132 L62 132 L65 90 Z" fill="url(#figGrad)" />
-                        <ellipse cx="56" cy="135" rx="9" ry="4" fill="#f59e0b" />
-                    </g>
-
-                    <!-- front leg -->
-                    <g id="legFront">
-                        <path d="M67 88 L70 132 L80 132 L72 90 Z" fill="url(#figGrad)" />
-                        <ellipse cx="75" cy="135" rx="9" ry="4" fill="#f59e0b" />
-                    </g>
-
-                    <!-- upper body group (bobs up/down) -->
-                    <g id="upperBody">
-                        <!-- back arm -->
-                        <rect x="48" y="58" width="9" height="34" rx="4" fill="url(#figGrad)" opacity="0.85" />
-
-                        <!-- torso -->
-                        <rect x="44" y="44" width="36" height="48" rx="16" fill="url(#figGrad)" />
-
-                        <!-- laptop -->
-                        <g id="laptop">
-                            <path d="M78 88 L112 88 L106 98 L72 98 Z" fill="#0f0f2e" stroke="#00d4ff"
-                                stroke-width="1" />
-                            <rect x="76" y="56" width="32" height="34" rx="2" fill="#0f0f2e" stroke="#7c3aed"
-                                stroke-width="1.4" transform="rotate(-6 92 73)" />
-                            <g transform="rotate(-6 92 73)">
-                                <rect x="79" y="59" width="26" height="28" rx="1.5" fill="#050514" />
-                                <rect id="cl1" x="82" y="63" width="14" height="2.4" fill="#00d4ff" />
-                                <rect id="cl2" x="82" y="68" width="20" height="2.4" fill="#f59e0b" />
-                                <rect id="cl3" x="82" y="73" width="10" height="2.4" fill="#ffffff" opacity="0.8" />
-                                <rect id="cl4" x="82" y="78" width="17" height="2.4" fill="#7c3aed" />
-                                <rect id="cursor" x="82" y="83" width="4" height="2.4" fill="#00d4ff" />
-                            </g>
-                        </g>
-
-                        <!-- front arm -->
-                        <rect x="68" y="60" width="9" height="32" rx="4" fill="url(#figGrad)" />
-
-                        <!-- head -->
-                        <circle cx="63" cy="26" r="15" fill="url(#figGrad)" />
-                        <path d="M48 22 Q63 4 78 22 Q78 12 63 10 Q48 12 48 22 Z" fill="#0f0f2e" opacity="0.55" />
-                    </g>
-                </svg>
-                <div class="percent-badge" id="percentBadge">0%</div>
-            </div>
+        <div class="loader-wrapper">
+            <div class="loader-ring"></div>
+            <div class="loader-inner"></div>
+            <div class="loader-center"></div>
         </div>
 
-        <div class="status-row">
-            <div class="loading-text" id="loadingText">Booting creativity engine<span class="dot"></span><span
-                    class="dot"></span><span class="dot"></span></div>
+        <div class="loading-text">
+            Loading your experience
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
         </div>
 
         <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
+            <div class="progress-bar"></div>
         </div>
     </div>
 
     <script>
-        (function () {
-            var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (reducedMotion) document.body.classList.add('reduced-motion');
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
 
-            /* ---------- ambient code-glyph particles ---------- */
-            var GLYPHS = ['{ }', '</>', '=>', ';', '01', 'fn()', '#!/', '&&', '0x1F', '<div>'];
-            var GLYPH_COLORS = ['#00d4ff', '#7c3aed', '#f59e0b'];
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
 
-            function spawnParticle() {
-                if (reducedMotion) return;
-                var particlesContainer = document.getElementById('particles');
-                if (!particlesContainer) return;
-                var el = document.createElement('div');
-                el.className = 'particle';
-                el.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-                el.style.color = GLYPH_COLORS[Math.floor(Math.random() * GLYPH_COLORS.length)];
-                el.style.left = (Math.random() * window.innerWidth) + 'px';
-                el.style.top = '100vh';
-                var duration = 12 + Math.random() * 10;
-                el.style.animationDuration = duration + 's';
-                particlesContainer.appendChild(el);
-                setTimeout(function () {
-                    if (el.parentNode) el.parentNode.removeChild(el);
-                }, duration * 1000 + 200);
+                const randomX = Math.random() * window.innerWidth;
+                const randomDelay = Math.random() * 20;
+                const randomDuration = 15 + Math.random() * 10;
+
+                particle.style.left = randomX + 'px';
+                particle.style.top = '100vh';
+                particle.style.animationDelay = randomDelay + 's';
+                particle.style.animationDuration = randomDuration + 's';
+
+                particlesContainer.appendChild(particle);
             }
+        }
 
-            for (var i = 0; i < 18; i++) {
-                setTimeout(spawnParticle, Math.random() * 4000);
+        // Initialize particles on load
+        createParticles();
+
+        // Loading completion and redirect
+        window.addEventListener('load', () => {
+            // Wait for animations to complete (4-5 seconds)
+            setTimeout(() => {
+                const loadingContainer = document.getElementById('loadingContainer');
+                loadingContainer.classList.add('fade-out');
+
+                // Redirect after fade out completes
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            }, 4000);
+        });
+
+        // Fallback: if page hasn't loaded after 5 seconds, redirect anyway
+        setTimeout(() => {
+            const loadingContainer = document.getElementById('loadingContainer');
+            if (loadingContainer && !loadingContainer.classList.contains('fade-out')) {
+                loadingContainer.classList.add('fade-out');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
             }
-            var particleInterval = setInterval(spawnParticle, 650);
-
-            /* ---------- elements ---------- */
-            var scene = document.getElementById('scene');
-            var character = document.getElementById('character');
-            var legBack = document.getElementById('legBack');
-            var legFront = document.getElementById('legFront');
-            var upperBody = document.getElementById('upperBody');
-            var charShadow = document.getElementById('charShadow');
-            var percentBadge = document.getElementById('percentBadge');
-            var progressBar = document.getElementById('progressBar');
-            var loadingText = document.getElementById('loadingText');
-            var loadingContainer = document.getElementById('loadingContainer');
-            var portal = document.getElementById('portal');
-            var ground = document.getElementById('ground');
-
-            var PHRASES = [
-                'Booting creativity engine',
-                'Compiling brilliant ideas',
-                'Optimizing every pixel',
-                'Brewing fresh code',
-                'Polishing the experience',
-                'Almost ready to launch'
-            ];
-            var phraseIndex = -1;
-
-            function setPhrase(percent) {
-                var idx = Math.min(PHRASES.length - 1, Math.floor((percent / 100) * PHRASES.length));
-                if (idx === phraseIndex) return;
-                phraseIndex = idx;
-                loadingText.classList.add('swap');
-                setTimeout(function () {
-                    loadingText.innerHTML = PHRASES[idx] + '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
-                    loadingText.classList.remove('swap');
-                }, 220);
-            }
-
-            /* ---------- code "typing" flicker on the laptop screen ---------- */
-            var codeLineIds = ['cl1', 'cl2', 'cl3', 'cl4'];
-            var codeColors = ['#00d4ff', '#f59e0b', '#7c3aed', '#ffffff'];
-            var codeInterval = null;
-            if (!reducedMotion) {
-                codeInterval = setInterval(function () {
-                    var id = codeLineIds[Math.floor(Math.random() * codeLineIds.length)];
-                    var el = document.getElementById(id);
-                    if (el) {
-                        el.setAttribute('width', 8 + Math.random() * 18);
-                        el.setAttribute('fill', codeColors[Math.floor(Math.random() * codeColors.length)]);
-                    }
-                }, 320);
-            }
-
-            /* ---------- footprints ---------- */
-            function spawnFootprint(x, footSide) {
-                if (reducedMotion) return;
-                var fp = document.createElement('div');
-                fp.className = 'footprint';
-                fp.style.left = (x + (footSide === 'back' ? 18 : 36)) + 'px';
-                scene.appendChild(fp);
-                setTimeout(function () {
-                    if (fp.parentNode) fp.parentNode.removeChild(fp);
-                }, 750);
-            }
-
-            /* ---------- main walk + load sequence ---------- */
-            var DURATION = 4300;
-            var STRIDE_RATE = 0.11;
-            var MAX_LEG_ANGLE = 30;
-            var BOB_AMOUNT = 4;
-
-            var startTime = null;
-            var lastX = 0;
-            var phase = 0;
-            var prevSinSign = 0;
-            var finished = false;
-            var trackWidth = 0;
-            var charWidth = 78;
-
-            function measure() {
-                var sceneWidth = scene.clientWidth || 360;
-                charWidth = character.offsetWidth || 78;
-                var portalReserve = (portal.offsetWidth || 34) + 24;
-                trackWidth = Math.max(40, sceneWidth - charWidth - portalReserve);
-            }
-            measure();
-            window.addEventListener('resize', measure);
-
-            function easeInOutCubic(t) {
-                return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-            }
-
-            function tick(now) {
-                if (startTime === null) startTime = now;
-                var elapsed = now - startTime;
-                var t = Math.min(1, elapsed / DURATION);
-                var percent = easeInOutCubic(t) * 100;
-
-                var x = reducedMotion ? (t * trackWidth) : (percent / 100) * trackWidth;
-
-                if (!reducedMotion) {
-                    var deltaX = x - lastX;
-                    phase += deltaX * STRIDE_RATE;
-                    lastX = x;
-
-                    var s = Math.sin(phase);
-                    var legBackAngle = s * MAX_LEG_ANGLE;
-                    var legFrontAngle = -s * MAX_LEG_ANGLE;
-                    legBack.setAttribute('transform', 'rotate(' + legBackAngle.toFixed(2) + ' 62 90)');
-                    legFront.setAttribute('transform', 'rotate(' + legFrontAngle.toFixed(2) + ' 70 90)');
-
-                    var bob = Math.abs(Math.sin(phase)) * BOB_AMOUNT;
-                    upperBody.setAttribute('transform', 'translate(0 ' + (-bob).toFixed(2) + ')');
-
-                    var shadowScale = 1 - (bob / BOB_AMOUNT) * 0.25;
-                    charShadow.style.transform = 'translateX(-50%) scale(' + shadowScale.toFixed(2) + ')';
-
-                    var sign = s === 0 ? prevSinSign : (s > 0 ? 1 : -1);
-                    if (prevSinSign !== 0 && sign !== prevSinSign) {
-                        spawnFootprint(x, sign > 0 ? 'front' : 'back');
-                    }
-                    prevSinSign = sign;
-
-                    ground.style.backgroundPosition = (-x * 0.6) + 'px 0';
-                } else {
-                    lastX = x;
-                }
-
-                character.style.transform = 'translateX(' + x.toFixed(1) + 'px)';
-                progressBar.style.width = percent.toFixed(1) + '%';
-                percentBadge.textContent = Math.round(percent) + '%';
-                setPhrase(percent);
-
-                if (t < 1) {
-                    requestAnimationFrame(tick);
-                } else if (!finished) {
-                    finishSequence(x);
-                }
-            }
-
-            function finishSequence(x) {
-                finished = true;
-                if (codeInterval) clearInterval(codeInterval);
-                clearInterval(particleInterval);
-
-                portal.classList.add('burst');
-                character.style.transition = 'transform 0.55s ease-in, opacity 0.5s ease-in';
-                character.style.transform = 'translateX(' + (x + 26) + 'px) scale(0.2)';
-                character.style.opacity = '0';
-
-                setTimeout(function () {
-                    loadingContainer.classList.add('fade-out');
-                    setTimeout(function () {
-                        window.location.href = 'index.html';
-                    }, 1000);
-                }, 600);
-            }
-
-            requestAnimationFrame(tick);
-
-            /* Hard safety fallback in case anything stalls */
-            setTimeout(function () {
-                if (!finished) {
-                    finished = true;
-                    loadingContainer.classList.add('fade-out');
-                    setTimeout(function () {
-                        window.location.href = 'index.html';
-                    }, 1000);
-                }
-            }, 9000);
-        })();
+        }, 5000);
     </script>
 </body>
 
-</html>git
+</html>
