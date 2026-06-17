@@ -1,3 +1,27 @@
+// ===== SITE LOADER CONTROL =====
+(function () {
+    const loader = document.getElementById('site-loader');
+    const content = document.getElementById('siteContent');
+    const delay = 2300; // ms, between 2-3s per requirement
+
+    function revealSite() {
+        if (!loader) return;
+        loader.classList.add('loader-hidden');
+        if (content) content.setAttribute('aria-hidden', 'false');
+        document.body.classList.remove('with-loader');
+        // remove loader from DOM after transition
+        setTimeout(() => { if (loader && loader.parentNode) loader.parentNode.removeChild(loader); }, 800);
+    }
+
+    if (document.readyState === 'complete') {
+        setTimeout(revealSite, delay);
+    } else {
+        window.addEventListener('load', () => setTimeout(revealSite, delay));
+        // fallback in case load stalls
+        setTimeout(() => { if (document.readyState !== 'complete') revealSite(); }, 4500);
+    }
+})();
+
 // ===== SCROLL REVEAL =====
 
 const revealElements = document.querySelectorAll(".reveal");
