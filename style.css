@@ -100,9 +100,10 @@ ul {
 
 .gradient-text {
   background: linear-gradient(135deg, #f59e0b, #fbbf24, #f59e0b);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text
+  color: transparent
 }
 
 .glow-text {
@@ -2309,6 +2310,7 @@ ul {
   font-size: 2rem;
   background: linear-gradient(135deg, #a78bfa, #38bdf8);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,22 +8,30 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:        #0A0A0A;
-      --surface:   #111111;
-      --surface2:  #181818;
-      --border:    #252525;
-      --border2:   #333333;
-      --text:      #F2EFEA;
-      --muted:     #666660;
-      --muted2:    #444440;
-      --accent:    #C8A96E;
-      --accent-dim:#7A6540;
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    html { scroll-behavior: smooth; }
+    :root {
+      --bg: #0A0A0A;
+      --surface: #111111;
+      --surface2: #181818;
+      --border: #252525;
+      --border2: #333333;
+      --text: #F2EFEA;
+      --muted: #666660;
+      --muted2: #444440;
+      --accent: #C8A96E;
+      --accent-dim: #7A6540;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       background: var(--bg);
@@ -60,7 +69,7 @@
     .btn-home:hover {
       border-color: var(--accent-dim);
       color: var(--accent);
-      background: rgba(200,169,110,0.04);
+      background: rgba(200, 169, 110, 0.04);
     }
 
     .btn-home svg {
@@ -80,7 +89,10 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .hero-inner { max-width: 1200px; margin: 0 auto; }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
     .hero-label {
       display: inline-block;
@@ -202,8 +214,11 @@
       line-height: 1.7;
       flex: 1;
       display: -webkit-box;
+      display: box;
       -webkit-line-clamp: 3;
+      line-clamp: 3;
       -webkit-box-orient: vertical;
+      box-orient: vertical;
       overflow: hidden;
     }
 
@@ -239,7 +254,7 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.92);
+      background: rgba(0, 0, 0, 0.92);
       z-index: 200;
       display: flex;
       align-items: flex-start;
@@ -279,7 +294,8 @@
     }
 
     .modal-hero img {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       display: block;
       filter: brightness(0.65) saturate(0.6);
@@ -332,7 +348,9 @@
       color: #AEAAA4;
     }
 
-    .modal-body p { margin-bottom: 1.4rem; }
+    .modal-body p {
+      margin-bottom: 1.4rem;
+    }
 
     .modal-body p:first-child::first-letter {
       font-family: 'Playfair Display', serif;
@@ -399,20 +417,36 @@
 
     /* ── Responsive ── */
     @media (max-width: 640px) {
-      .modal-backdrop { padding: 0; align-items: flex-end; }
-      .modal { max-width: 100%; border-left: none; border-right: none; }
+      .modal-backdrop {
+        padding: 0;
+        align-items: flex-end;
+      }
+
+      .modal {
+        max-width: 100%;
+        border-left: none;
+        border-right: none;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition: none !important; }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <div class="top-bar">
     <a href="index.html" class="btn-home" title="Back to Home">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      <svg viewBox="0 0 24 24">
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
       Pratik
     </a>
   </div>
@@ -568,21 +602,21 @@
     });
 
     /* ── Modal Logic ── */
-    const backdrop  = document.getElementById('modalBackdrop');
+    const backdrop = document.getElementById('modalBackdrop');
     const modalHero = document.getElementById('modalHero');
-    const modalTag  = document.getElementById('modalTag');
+    const modalTag = document.getElementById('modalTag');
     const modalTitle = document.getElementById('modalTitle');
-    const modalMeta  = document.getElementById('modalMeta');
-    const modalBody  = document.getElementById('modalBody');
-    const btnClose   = document.getElementById('btnClose');
+    const modalMeta = document.getElementById('modalMeta');
+    const modalBody = document.getElementById('modalBody');
+    const btnClose = document.getElementById('btnClose');
 
     function openModal(index) {
       const p = posts[index];
       modalHero.innerHTML = placeholders[p.placeholderIndex];
-      modalTag.textContent   = p.tag;
+      modalTag.textContent = p.tag;
       modalTitle.textContent = p.title;
-      modalMeta.textContent  = p.date + '  ·  ' + p.readTime;
-      modalBody.innerHTML    = p.content;
+      modalMeta.textContent = p.date + '  ·  ' + p.readTime;
+      modalBody.innerHTML = p.content;
       backdrop.classList.add('is-open');
       backdrop.scrollTop = 0;
       document.body.style.overflow = 'hidden';
@@ -601,4 +635,5 @@
     });
   </script>
 </body>
+
 </html>
